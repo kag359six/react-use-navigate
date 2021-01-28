@@ -32,7 +32,7 @@ useEffect(() => {
     goTo: '/login',
     when: !isLoggedIn,
     onPaths: ['/app/**'], // glob pattern matching goodness
-    otherwiseGoTo: '/app/dashboard',
+    otherwiseGoTo: '/app/dashboard', // this will only trigger if when === false AND path requirements fail
   })
 }, [isLoggedIn])
 ```
