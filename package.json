@@ -14,8 +14,14 @@
         "@pika/plugin-standard-pkg",
         {
           "exclude": [
-            "global.css"
+            "/**/*.test.tsx"
           ]
+        }
+      ],
+      [
+        "pika-plugin-minify",
+        {
+          "mangle": true
         }
       ],
       [
@@ -31,7 +37,7 @@
     "url": "git+https://github.com/kag359six/react-use-navigate.git"
   },
   "author": "Kristopher Guzman",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kag359six/react-use-navigate/issues"
   },
@@ -43,6 +49,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-types": "^0.9.2",
@@ -60,6 +67,7 @@
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
     "jest": "^26.6.3",
+    "pika-plugin-minify": "^0.1.0",
     "prettier": "^2.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

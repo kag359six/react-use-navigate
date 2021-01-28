@@ -1,3 +1,4 @@
+import { FC } from 'react';
 declare type UseNavigateProps = {
     when?: boolean;
     to?: string;
@@ -9,7 +10,8 @@ declare type UseNavigateConfig = {
     back: () => void;
     replace: (path: string) => void;
 };
-declare const useNavigate: (methods: UseNavigateConfig) => {
+export declare const NavigateProvider: FC<UseNavigateConfig>;
+declare const useNavigate: () => {
     push: ({ to, when, onPaths, notOnPaths }: UseNavigateProps) => void;
     back: ({ to, when, onPaths, notOnPaths }: UseNavigateProps) => void;
     replace: ({ to, when, onPaths, notOnPaths }: UseNavigateProps) => void;

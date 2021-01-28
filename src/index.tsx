@@ -1,5 +1,5 @@
 import minimatch from 'minimatch'
-import { useCallback, useMemo } from 'react'
+import React, { FC, useCallback, useContext, useMemo } from 'react'
 
 type UseNavigateProps = {
   when?: boolean
@@ -14,7 +14,25 @@ type UseNavigateConfig = {
   replace: (path: string) => void
 }
 
-const useNavigate = (methods: UseNavigateConfig) => {
+const NavigateContext = React.createContext<UseNavigateConfig>({
+  push: () => {
+    throw new Error('please provide navigation methods to NavigateProvider')
+  },
+  back: () => {
+    throw new Error('please provide navigation methods to NavigateProvider')
+  },
+  replace: () => {
+    throw new Error('please provide navigation methods to NavigateProvider')
+  },
+})
+
+export const NavigateProvider: FC<UseNavigateConfig> = ({ children, ...methods }) => (
+  <NavigateContext.Provider value={methods}>{children}</NavigateContext.Provider>
+)
+
+const useNavigate = () => {
+  const methods = useContext(NavigateContext)
+
   const navigator = useCallback(
     // eslint-disable-next-line @typescript-eslint/ban-types
     (method: Function) => ({ to, when = true, onPaths, notOnPaths }: UseNavigateProps) => {

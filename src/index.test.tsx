@@ -1,11 +1,14 @@
+import React, { FC } from 'react'
 import { renderHook, act } from '@testing-library/react-hooks'
-import useNavigate from './index'
+import useNavigate, { NavigateProvider } from './index'
 
 const config = {
   push: jest.fn(),
   replace: jest.fn(),
   back: jest.fn(),
 }
+
+const wrapper: FC = ({ children }) => <NavigateProvider {...config}>{children}</NavigateProvider>
 
 beforeAll(() => {
   global.window = Object.create(window)
@@ -17,7 +20,7 @@ beforeAll(() => {
 })
 
 test('navigate if "when" is true and no paths are specified', () => {
-  const { result } = renderHook(() => useNavigate(config))
+  const { result } = renderHook(() => useNavigate(), { wrapper })
 
   act(() => {
     result.current.push({
@@ -30,7 +33,7 @@ test('navigate if "when" is true and no paths are specified', () => {
 })
 
 test('never navigate if "when" is false', () => {
-  const { result } = renderHook(() => useNavigate(config))
+  const { result } = renderHook(() => useNavigate(), { wrapper })
 
   act(() => {
     result.current.push({
@@ -45,7 +48,7 @@ test('never navigate if "when" is false', () => {
 })
 
 test('dont navigate if no exact path match in onPaths', () => {
-  const { result } = renderHook(() => useNavigate(config))
+  const { result } = renderHook(() => useNavigate(), { wrapper })
 
   act(() => {
     result.current.push({
@@ -59,7 +62,7 @@ test('dont navigate if no exact path match in onPaths', () => {
 })
 
 test('navigate if pathname matches glob in "onPaths"', () => {
-  const { result } = renderHook(() => useNavigate(config))
+  const { result } = renderHook(() => useNavigate(), { wrapper })
 
   act(() => {
     result.current.push({
@@ -73,7 +76,7 @@ test('navigate if pathname matches glob in "onPaths"', () => {
 })
 
 test('dont navigate if user is on a path specified in "notOnPaths"', () => {
-  const { result } = renderHook(() => useNavigate(config))
+  const { result } = renderHook(() => useNavigate(), { wrapper })
 
   act(() => {
     result.current.push({
@@ -86,7 +89,7 @@ test('dont navigate if user is on a path specified in "notOnPaths"', () => {
   expect(config.push).toHaveBeenCalledTimes(0)
 })
 test('navigate if user is not on a path specified in "notOnPaths"', () => {
-  const { result } = renderHook(() => useNavigate(config))
+  const { result } = renderHook(() => useNavigate(), { wrapper })
 
   act(() => {
     result.current.push({
