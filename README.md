@@ -1,2 +1,3 @@
-# react-use-redirect
-Easy, flexible, and expressive redirects with React.
+# react-use-navigate
+
+Easy, flexible, and expressive hook based navigation in React.
