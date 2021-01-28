@@ -4,6 +4,7 @@ Easy, flexible, and expressive hook based navigation in React.
 
 ## Features
 - Tiny. Simple. Expressive. 1.5kb gzipped.
+- Written in TypeScript
 - React framework agnostic (Next.js, Gatsby, React Router, Reach Router, etc.)
 - Glob pattern matching support
 
@@ -50,5 +51,61 @@ useEffect(() => {
     notOnPaths: ['/marketing/**'], // navigates when a user isn't on a matching page
   })
 }, [isLoggedIn])
+```
+
+## Installation
+```
+yarn add react-use-navigate
+npm install react-use-navigate
+```
+This package has a peer dependency on React and React DOM > 16.8.0 (basically you need react hooks).
+
+## Setup
+This hook doesn't care *how* navigation works, it just asks that you provide the logic for the basic navigation methods `push`, `replace`, and `back`.
+
+This can be done with a config object in the `NavigateProvider`. Below are a few examples in different frameworks.
+
+### React Router Setup
+
+```
+import { NavigateProvider } from 'react-use-navigate'
+
+const App = () => {
+  const history = useHistory()
+  
+  const config = {
+    push: history.push,
+    back: history.back,
+    replace: history.replace
+  }
+
+  return (
+    <NavigateProvider {...config}>
+      <RootComponent/>
+    </NavigateProvider>
+  )
+}
+```
+
+### Next.js Setup
+
+```
+import { NavigateProvider } from 'react-use-navigate'
+
+const App = () => {
+  const router = useRouter()
+  
+  const config = {
+    push: router.push,
+    back: router.back,
+    replace: router.replace
+  }
+
+  return (
+    <NavigateProvider {...config}>
+      <RootComponent/>
+    </NavigateProvider>
+  )
+}
 ```
 
