@@ -4,7 +4,7 @@ Easy, flexible, and expressive hook based navigation in React.
 
 ## Features
 - Tiny. Simple. Expressive. 1.5kb gzipped.
-- Written in TypeScript
+- TypeScript ready
 - React framework agnostic (Next.js, Gatsby, React Router, Reach Router, etc.)
 - Glob pattern matching support
 
@@ -65,7 +65,7 @@ This hook doesn't care *how* navigation works, it just asks that you provide the
 
 This can be done with a config object in the `NavigateProvider`. Below are a few examples in different frameworks.
 
-### React Router Setup
+### Using React Router 
 
 ```
 import { NavigateProvider } from 'react-use-navigate'
@@ -87,14 +87,14 @@ const App = () => {
 }
 ```
 
-### Next.js Setup
+### Using Next.js
 
 ```
 import { NavigateProvider } from 'react-use-navigate'
 
-const App = () => {
+function MyApp({ Component, pageProps }) {
   const router = useRouter()
-  
+
   const config = {
     push: router.push,
     back: router.back,
@@ -103,9 +103,34 @@ const App = () => {
 
   return (
     <NavigateProvider {...config}>
-      <RootComponent/>
+      <Component {...pageProps} />
     </NavigateProvider>
   )
 }
+```
+
+## API Reference
+
+### useNavigate()
+`const { push, back, replace } = useNavigate()`
+
+Each navigation method uses the same paramters:
+
+```
+type UseNavigateProps = {
+  when?: boolean
+  goTo?: string
+  onPaths?: string[] // array of globs
+  notOnPaths?: string[]
+  otherwiseGoTo?: string
+}
+```
+| Property      | Description                                                                                                                                                         | type     | required |   |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|----------|---|
+| when          | base condition that must be met to navigate                                                                                                                         | boolean  | false    |   |
+| goTo          | the link to go to                                                                                                                                                   | string   | true     |   |
+| onPaths       | navigation will occur only if a user is on one of the specified paths. Will take precedence over `notOnPaths` field                                                 | string[] | false    |   |
+| notOnPaths    | navigation will occur only if a user is not on any of the specified paths.                                                                                          | string[] | false    |   |
+| otherwiseGoTo | The link to go to if `when === false` and `onPaths` or `notOnPaths` is also false. If the latter two fields aren't specified, it will navigate if `when === false`. | string   | false    |   |
 ```
 
