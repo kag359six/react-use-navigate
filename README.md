@@ -5,7 +5,7 @@ Easy, flexible, and expressive hook based navigation in React.
 ## Features
 - Tiny. Simple. Expressive. 1.5kb gzipped.
 - TypeScript ready
-- React framework agnostic (Next.js, Gatsby, React Router, Reach Router, etc.)
+- React framework agnostic (Next.js, React Router, Reach Router, etc.)
 - Glob pattern matching support
 
 ## Motivation
