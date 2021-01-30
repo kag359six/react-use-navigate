@@ -87,7 +87,7 @@ const App = () => {
 }
 ```
 
-### Using Next.js
+### Using Next.js (_App.js)
 
 ```
 import { NavigateProvider } from 'react-use-navigate'
