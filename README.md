@@ -13,7 +13,7 @@ Often times we want to navigate pages conditionally. This can easily turn into a
 
 ```
 useEffect(() => {
-  const inApp = new RegEx(`/${location.hostname}\/app\/([0-9A-Za-z]+\/?)+/`)
+  const inApp = new RegEx(`/app\/([0-9A-Za-z]+\/?)+/`).test(location.pathname)
   if(!isLoggedIn && inApp) {
     return goTo('/login')
   }
